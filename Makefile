@@ -6,14 +6,21 @@ OS ?= linux
 ARCH ?= ??? 
 ALL_ARCH ?= arm64 amd64
 DOCKER_IMAGE ?= raquette/tftp-hpa
-TAG ?= v1.0.0
+TAG ?= v1.0.2
+BUILDER = raquette/tftp-hpa-builder
 REPOSITORY_GENERIC = ${DOCKER_IMAGE}:${TAG}
 REPOSITORY_ARCH = ${DOCKER_IMAGE}:${TAG}-${ARCH}
 
 default: binary-images
 
-binary-image:
-	docker buildx build --platform ${OS}/${ARCH} -t "${REPOSITORY_ARCH}"  . 
+syslinux.tar: builder-image
+	docker run raquette/tftp-hpa-builder > syslinux.tar
+
+builder-image:
+	docker buildx build --pull --platform linux/amd64 -t "${BUILDER}"  -f Dockerfile.builder .
+
+binary-image: syslinux.tar
+	docker buildx build --pull --platform ${OS}/${ARCH} -t "${REPOSITORY_ARCH}"  -f Dockerfile . 
 
 binary-images:
 	(set -e ; $(foreach arch,$(ALL_ARCH), \
@@ -52,5 +59,5 @@ clean-image:
 	-rm -rf ~/.docker/manifests/*
 
 clean: clean-images
-
+	-rm syslinux.tar
 
