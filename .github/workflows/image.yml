@@ -55,8 +55,8 @@ jobs:
         run: |
           make syslinux.tar
           ls -l
-#      - name: build the image
-#        run: |
-#           make auto-build-and-push \
-#             VERSION=${{ steps.prepare.outputs.version }} \
-#             PLATFORMS=${{ steps.prepare.outputs.platforms }} 
+      - name: build the image
+        run: |
+           make auto-build-and-push \
+             VERSION=${{ steps.prepare.outputs.version }} \
+             PLATFORMS=${{ steps.prepare.outputs.platforms }} 
