@@ -10,7 +10,8 @@ FROM alpine:3.12
 COPY syslinux.tar /syslinux.tar
 
 COPY pxelinux.cfg /tftpboot/pxelinux.cfg/
-RUN tar -xf /syslinux.tar
+RUN tar -xf /syslinux.tar && \
+    rm /syslinux.tar
 
 # Add safe defaults that can be overriden easily.
 COPY pxelinux.cfg /tftpboot/pxelinux.cfg/
