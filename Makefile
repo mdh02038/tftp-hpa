@@ -19,7 +19,7 @@ auto-build-and-push: syslinux.tar
 build: syslinux.tar
 	docker buildx build --platform $(PLATFORMS) -t "$(MANIFEST_TAG)"  --build-arg VERSION=${VERSION} -f Dockerfile . 
 
-auto-build-and-push-builder: syslinux.tar
+auto-build-and-push-builder:
 	docker buildx build  --push --platform $(BUILDER_PLATFORMS) -t "$(BUILDER_MANIFEST_TAG)"  --build-arg VERSION=${VERSION} -f Dockerfile.builder . 
 
 build-builder:
