@@ -26,4 +26,4 @@ build-builder:
 	docker buildx build --platform $(BUILDER_PLATFORMS) -t "$(BUILDER_MANIFEST_TAG)"  --build-arg VERSION=${VERSION} -f Dockerfile.builder . 
 
 syslinux.tar: build-builder
-	docker run raquette/$(BUILDER_MANIFEST_TAG) > syslinux.tar
+	docker run $(BUILDER_MANIFEST_TAG) > syslinux.tar
