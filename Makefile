@@ -3,7 +3,7 @@
 
 
 PLATFORMS ?= linux/amd64,linux/arm64
-DOCKER_IMAGE ?= raquette/tftp-hpa-builder
+DOCKER_IMAGE ?= raquette/tftp-hpa
 BUILDER_PLATFORMS ?= linux/amd64
 BUILDER_DOCKER_IMAGE ?= raquette/tftp-hpa-builder
 VERSION ?= "edge"
